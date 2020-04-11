@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!--スタイルシートで自機と障害物の見た目を規定-->
+	<style type="text/css">
+		.player
+		{
+			width            : 40px;
+			height           : 40px;
+			background-color : #00ADFF;
+			position         : fixed;
+		}
+
+		.block
+		{
+			width            : 40px;
+			height           : 40px;
+			background-color : #FFF231;
+			position         : fixed;
+		}
+	</style>
+</head>
+<body>
+	<!--自機の表示-->
+	<div class="player"></div>
+	<!--ゲーム内各要素の動きのベースとなるライブラリ読み込み-->
+	<script src="jquery-3.5.0.min.js"></script>
+	<!--ゲームプログラムの読み込み表示-->
+	<script src="main.js"></script>
+</body>
+</html>
