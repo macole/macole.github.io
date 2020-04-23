@@ -1,0 +1,79 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>Three.js Test</title>
+
+<!-- css -->
+<style>
+body {
+    margin:0px;
+    padding:0px;
+}
+.canvas_box {
+    margin:0px;
+    padding:0px;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background-color:#ccc;
+    position:relative;
+}
+#canvas_main {
+    margin:0px;
+    padding:0px;
+    width:100%;
+    height:100%;
+}
+
+.form_ctrl {
+    margin:0px;
+    padding:10px;
+    position:absolute;
+    top:10;
+    left:10;
+    background-color: rgba(0,0,0,0.3);
+}
+</style>
+
+<!-- js -->
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/three/three.min.js"></script>
+<script src="js/three/Detector.js"></script>
+
+<script src="js/bleTest.js"></script>
+<script>
+jQuery(function(){
+    $(window).on("load",function(){
+        $("#canvas_main").bleTest({
+            camera    : {
+                fov : 60,
+            }
+        });
+    });
+});
+</script>
+
+</head>
+<body>
+<div class="canvas_box">
+  <canvas id="canvas_main"></canvas>
+  <div class="form_ctrl">
+    <table cellspacing="0" cellpadding="0" border="0">
+      <tr>
+        <td><span style="color:#666;">P：</span></td>
+        <td><input type="text" id="pitch" size="4" value="0" /></td>
+      <tr>
+      <tr>
+        <td><span style="color:#666;">R：</span></td>
+        <td><input type="text" id="roll" size="4" value="0" /></td>
+      <tr>
+    </table>
+    <hr />
+    <div style="text-align:center;">
+      <button id="btn_connect">connect</button> <button id="btn_disconnect">disconnect</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
