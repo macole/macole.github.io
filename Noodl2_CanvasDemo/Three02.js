@@ -15,8 +15,8 @@
         //}
         // レンダラーを作成
         // サイズを指定
-        const width = inputs.DOM.width;
-        const height = inputs.DOM.height;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
 
         // 角度
         let rot = 0;

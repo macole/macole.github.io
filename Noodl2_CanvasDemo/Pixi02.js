@@ -17,17 +17,8 @@
     // will be run when a signal is received on the input.
     mySignal: function (inputs, outputs) {
         // ...
-        //if (!inputs.scriptLoaded) {
-        //    return;
-        //}
         var canvas = inputs.DOM;
-        const width = canvas.width;
-        const height = canvas.height;
-
-        //var context = canvas.getContext("2d");
-        // 表示するcanvasを用意
-        let app = new PIXI.Application(width/4,height/4, { backgroundColor: 0xff99bb });
-        document.body.appendChild(app.view);
+        let app = new PIXI.Application( { view:canvas,backgroundColor: 0x000000});
 
         //表示をする画像の数
         let totalSprites = 100;
@@ -128,10 +119,10 @@
         let textSmall = new PIXI.Text('Particle animation', styleSmall);
 
         // テキストの位置を指定
-        textBig.x = 100;
-        textBig.y = 220;
-        textSmall.x = 160;
-        textSmall.y = 320;
+        textBig.x = 200;
+        textBig.y = 200;
+        textSmall.x = 200+50;
+        textSmall.y = 200+100;
 
         // ステージに表示させる
         app.stage.addChild(textBig);
