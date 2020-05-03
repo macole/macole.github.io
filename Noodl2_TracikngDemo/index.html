@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=auto">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="noodl-app.png">
+    <title>Noodl Viewer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            user-select: none;
+            background-color: black;
+        }
+
+        img {
+            -webkit-user-drag: none;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            cursor: default;
+        }
+
+    </style>
+</head>
+<body>
+<noscript>
+    You need to enable JavaScript to run this app.
+</noscript>
+
+<div id="root" style="display: flex; width:100%; height: 100%; overflow: hidden; position: fixed;"></div>
+
+<script src="react.production.min.js"></script>
+<script src="react-dom.production.min.js"></script>
+
+
+
+<script type="application/javascript">
+    window.__noodl_modules = [];
+    window.Noodl = {
+        defineModule:function(m) {
+            window.__noodl_modules.push(m);
+        }
+    }
+    window.projectData = {"settings":{},"components":[{"name":"/Main","nodes":[{"id":"eacc74e7-4dce-2baf-354b-8070e2b2b872","type":"Group","parameters":{"backgroundColor":"#FFFFFF","width":{"value":600,"unit":"px"},"height":{"value":320,"unit":"px"}},"ports":[{"name":"width","type":{"name":"number","units":["%","px","vw"],"defaultUnit":"%"},"plug":"input","group":"Dimensions","displayName":"Width","default":"100","index":2},{"name":"height","type":{"name":"number","units":["%","px","vh"],"defaultUnit":"%"},"plug":"input","group":"Dimensions","displayName":"Height","default":"100","index":3},{"name":"borderWidth","type":{"name":"number","units":["px"],"defaultUnit":"px"},"plug":"input","group":"Style","displayName":"Border Width","default":0,"index":353},{"name":"borderColor","type":"color","plug":"input","group":"Style","displayName":"Border Color","index":354}],"children":[{"id":"b8cad47f-dec9-1ee7-8563-3cb3209bf695","type":"Video","parameters":{"autoplay":true},"ports":[],"children":[]},{"id":"d9dcce2d-3aa9-c06a-ea3c-056849991675","type":"Canvas","parameters":{},"ports":[{"name":"width","type":{"name":"number","units":["%","px","vw"],"defaultUnit":"%"},"plug":"input","group":"Dimensions","displayName":"Width","default":"100","index":2},{"name":"height","type":{"name":"number","units":["%","px","vh"],"defaultUnit":"%"},"plug":"input","group":"Dimensions","displayName":"Height","default":"100","index":3}],"children":[]},{"id":"cc114ddf-9d83-1980-1ec3-0fd02d95991a","type":"Image","parameters":{"src":"shimizu.png","sizeMode":"contentHeight","width":{"value":200,"unit":"px"},"position":"absolute"},"ports":[{"name":"width","type":{"name":"number","units":["%","px","vw"],"defaultUnit":"%"},"plug":"input","group":"Dimensions","displayName":"Width","default":"100","index":2}],"children":[]}]},{"id":"ee017f87-5821-797c-202e-ea2da8df190e","type":"Javascript2","parameters":{"code":"define({\r\n    // The input ports of the Javascript node, name of input and type\r\n    inputs:{\r\n        // ExampleInput:'number',\r\n        // Available types are 'number', 'string', 'boolean', 'color' and 'signal',\r\n        mySignal:'signal',\r\n        video:'domelement',\r\n        canvas:'domelement',\r\n        img:'reference'\r\n    },\r\n\r\n    // The output ports of the Javascript node, name of output and type\r\n    outputs:{\r\n        // ExampleOutput:'string',\r\n        posX:'number',\r\n        posY:'number'\r\n    },\r\n\r\n    // All signal inputs need their own function with the corresponding name that\r\n    // will be run when a signal is received on the input.\r\n    mySignal:function(inputs,outputs) {\r\n        // ...\r\n        var _this = this;\r\n        inputs.video.setAttribute(\"id\",'video');\r\n          var video = inputs.video;\r\n          var canvas = inputs.canvas;\r\n          var context = canvas.getContext('2d');\r\n\r\n          var tracker = new tracking.ObjectTracker('face');\r\n          tracker.setInitialScale(4);\r\n          tracker.setStepSize(2);\r\n          tracker.setEdgesDensity(0.1);\r\n\r\n          tracking.track('#video', tracker, { camera: true });\r\n\r\n          tracker.on('track', function(event) {\r\n            context.clearRect(0, 0, canvas.width, canvas.height);\r\n\r\n            event.data.forEach(function(rect) {\r\n                outputs.posX = rect.x;\r\n                outputs.posY = rect.y;\r\n                _this.flagOutputDirty(\"posX\");\r\n                _this.flagOutputDirty(\"posY\");\r\n            });\r\n          });\r\n    },\r\n\r\n    // This function will be called when any of the inputs have changed\r\n    change:function(inputs,outputs) {\r\n        // ...\r\n    }\r\n})"},"ports":[{"name":"code","type":{"name":"string","allowEditOnly":true,"codeeditor":"javascript"},"plug":"input","group":"Code","displayName":"Code","default":"define({\n\t// The input ports of the Javascript node, name of input and type\n\tinputs:{\n\t    // ExampleInput:'number',\n\t    // Available types are 'number', 'string', 'boolean', 'color' and 'signal',\n\t    mySignal:'signal',\n\t},\n\t\n\t// The output ports of the Javascript node, name of output and type\n\toutputs:{\n\t    // ExampleOutput:'string',\n\t},\n\t\n\t// All signal inputs need their own function with the corresponding name that\n\t// will be run when a signal is received on the input.\n\tmySignal:function(inputs,outputs) {\n\t\t// ...\n\t},\n\t\n\t// This function will be called when any of the inputs have changed\n\tchange:function(inputs,outputs) {\n\t\t// ...\n\t}\n})\n","index":1},{"name":"mySignal","plug":"input","type":{"name":"signal"},"group":"Inputs","index":2},{"name":"video","plug":"input","type":{"name":"domelement"},"group":"Inputs","index":3},{"name":"canvas","plug":"input","type":{"name":"domelement"},"group":"Inputs","index":4},{"name":"img","plug":"input","type":{"name":"reference"},"group":"Inputs","index":5},{"name":"posX","type":{"name":"number"},"plug":"output","group":"Outputs","index":6},{"name":"posY","type":{"name":"number"},"plug":"output","group":"Outputs","index":7}],"children":[]},{"id":"33be31f9-924d-40dc-09ff-6343c9b286e6","type":"Script Downloader","parameters":{"input 0":"./build/tracking-min.js","input 1":"./build/data/face-min.js"},"ports":[{"name":"input 0","displayName":"Script 0","type":"string","plug":"input","group":"External scripts","index":2},{"name":"input 1","displayName":"Script 1","type":"string","plug":"input","group":"External scripts","index":3},{"name":"input 2","displayName":"Script 2","type":"string","plug":"input","group":"External scripts","index":4}],"children":[]}],"connections":[{"sourceId":"33be31f9-924d-40dc-09ff-6343c9b286e6","sourcePort":"loaded","targetId":"b8cad47f-dec9-1ee7-8563-3cb3209bf695","targetPort":"play"},{"sourceId":"33be31f9-924d-40dc-09ff-6343c9b286e6","sourcePort":"loaded","targetId":"ee017f87-5821-797c-202e-ea2da8df190e","targetPort":"mySignal"},{"sourceId":"d9dcce2d-3aa9-c06a-ea3c-056849991675","sourcePort":"onElementCreated","targetId":"ee017f87-5821-797c-202e-ea2da8df190e","targetPort":"canvas"},{"sourceId":"ee017f87-5821-797c-202e-ea2da8df190e","sourcePort":"posX","targetId":"cc114ddf-9d83-1980-1ec3-0fd02d95991a","targetPort":"transformX"},{"sourceId":"ee017f87-5821-797c-202e-ea2da8df190e","sourcePort":"posY","targetId":"cc114ddf-9d83-1980-1ec3-0fd02d95991a","targetPort":"transformY"},{"sourceId":"b8cad47f-dec9-1ee7-8563-3cb3209bf695","sourcePort":"onVideoElementCreated","targetId":"ee017f87-5821-797c-202e-ea2da8df190e","targetPort":"video"}],"ports":[],"roots":["eacc74e7-4dce-2baf-354b-8070e2b2b872"]}],"rootComponent":"/Main","rootNode":"eacc74e7-4dce-2baf-354b-8070e2b2b872","metadata":{"deviceSettings":{"deviceTypes":[{"name":"Web","desc":"This is the default device that can be used to view the app from a browser.","rootComponentPath":"/Main","type":"Browser"}]}}};
+</script>
+
+
+
+<script src="noodl.js"></script>
+</body>
+</html>
